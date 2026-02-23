@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Boot API Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+
+        button:hover {
+            background: #45a049;
+        }
+
+        .error {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .success {
+            color: #388e3c;
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        pre {
+            background: #263238;
+            color: #aed581;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .status {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        .status.checking {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        .status.online {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status.offline {
+            background: #ffebee;
+            color: #c62828;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔧 Spring Boot Backend Test</h1>
+        <p>Use this page to test your Spring Boot API at <code>http://localhost:8080/form</code></p>
+
+        <div id="status" class="status checking">⏳ Checking server status...</div>
+
+        <button onclick="checkServer()">Check Server Status</button>
+        <button onclick="testSubmit()">Test Form Submission</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        // Check if server is running
+        async function checkServer() {
+            const resultDiv = document.getElementById('result');
+            const statusDiv = document.getElementById('status');
+
+            resultDiv.innerHTML = '<p>Checking server...</p>';
+            statusDiv.className = 'status checking';
+            statusDiv.textContent = '⏳ Checking server status...';
+
+            try {
+                const response = await fetch('http://localhost:8080/form', {
+                    method: 'OPTIONS',
+                });
+
+                if (response.ok || response.status === 405) {
+                    statusDiv.className = 'status online';
+                    statusDiv.textContent = '✅ Server is ONLINE at http://localhost:8080';
+                    resultDiv.innerHTML = '<div class="success">✅ Server is reachable!</div>';
+                } else {
+                    statusDiv.className = 'status offline';
+                    statusDiv.textContent = '❌ Server returned status: ' + response.status;
+                    resultDiv.innerHTML = '<div class="error">Server responded with status: ' + response.status + '</div>';
+                }
+            } catch (error) {
+                statusDiv.className = 'status offline';
+                statusDiv.textContent = '❌ Server is OFFLINE';
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>❌ Cannot connect to server</strong><br>
+                        Error: ${error.message}<br><br>
+                        <strong>Possible reasons:</strong><br>
+                        1. Spring Boot application is not running<br>
+                        2. Server is not running on port 8080<br>
+                        3. CORS is not configured properly
+                    </div>
+                `;
+            }
+        }
+
+        // Test form submission
+        async function testSubmit() {
+            const resultDiv = document.getElementById('result');
+
+            const testData = {
+                category: "Student",
+                gender: "Male",
+                dob: "2003-05-14",
+                university: "Test University",
+                department: "Computer Science",
+                year: "3rd Year",
+                rollNo: "TEST123",
+                whatsapp: "9876543210",
+                city: "Test City",
+                district: "Test District",
+                participationType: "Solo",
+                tshirtSize: "L",
+                foodPreference: "Veg",
+                emergencyName: "Emergency Contact",
+                emergencyPhone: "9999999999",
+                reason: "Testing from HTML",
+                source: "Website",
+                terms: true,
+                fullName: "Test User",
+                college: "Test College",
+                email: "test@example.com",
+                phone: "9876543210"
+            };
+
+            resultDiv.innerHTML = '<p>Sending test data...</p>';
+
+            console.log('=== TEST SUBMISSION ===');
+            console.log('Payload:', testData);
+
+            try {
+                const response = await fetch('http://localhost:8080/form', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(testData)
+                });
+
+                console.log('Response Status:', response.status);
+                console.log('Response OK:', response.ok);
+
+                const responseText = await response.text();
+                console.log('Response Body:', responseText);
+
+                if (response.ok) {
+                    resultDiv.innerHTML = `
+                        <div class="success">
+                            <strong>✅ SUCCESS!</strong><br>
+                            Status: ${response.status}<br>
+                            Response: ${responseText}
+                        </div>
+                        <h3>Request Payload:</h3>
+                        <pre>${JSON.stringify(testData, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <div class="error">
+                            <strong>❌ Server Error</strong><br>
+                            Status: ${response.status}<br>
+                            Response: ${responseText}
+                        </div>
+                        <h3>Request Payload:</h3>
+                        <pre>${JSON.stringify(testData, null, 2)}</pre>
+                    `;
+                }
+            } catch (error) {
+                console.error('Fetch Error:', error);
+                resultDiv.innerHTML = `
+                    <div class="error">
+                        <strong>❌ Request Failed</strong><br>
+                        Error: ${error.message}<br><br>
+                        <strong>Common issues:</strong><br>
+                        1. Spring Boot not running<br>
+                        2. CORS not configured<br>
+                        3. Wrong endpoint URL
+                    </div>
+                    <h3>Request Payload:</h3>
+                    <pre>${JSON.stringify(testData, null, 2)}</pre>
+                `;
+            }
+        }
+
+        // Auto-check on load
+        window.onload = checkServer;
+    </script>
+</body>
+
+</html>

@@ -8,38 +8,40 @@ import AdminDashboard from './pages/AdminDashboard'
 import { useEffect } from 'react'
 import Lenis from 'lenis'
 
-// Wrapper to handle Lenis and Route changes
+// Lenis is initialized once at app level — no cleanup needed inside AppWrapper
+let lenisInstance = null;
+let rafId = null;
+
+function initLenis() {
+  if (lenisInstance) return;
+
+  lenisInstance = new Lenis({
+    duration: 1.1,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothTouch: false,     // disable on touch devices (performance)
+    touchMultiplier: 1.5,
+  });
+
+  function raf(time) {
+    lenisInstance.raf(time);
+    rafId = requestAnimationFrame(raf);
+  }
+
+  rafId = requestAnimationFrame(raf);
+}
+
+// Start Lenis immediately on module load
+initLenis();
+
 const AppWrapper = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Re-initialize or reset scroll on route change if needed
+    // Scroll to top on route change
     window.scrollTo(0, 0);
-  }, [location]);
-
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 2,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
+    // Also reset Lenis scroll position
+    if (lenisInstance) lenisInstance.scrollTo(0, { immediate: true });
+  }, [location.pathname]);
 
   return (
     <Routes>

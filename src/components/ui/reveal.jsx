@@ -1,31 +1,23 @@
-import React, { useEffect, useRef } from "react";
-import { motion, useInView, useAnimation } from "framer-motion";
+import React, { useRef, memo } from "react";
+import { motion, useInView } from "framer-motion";
 
-export const Reveal = ({ children, width = "fit-content", delay = 0.25 }) => {
+// Simplified Reveal: uses useInView directly (no useAnimation/useEffect overhead)
+// memo prevents re-render when parent re-renders
+export const Reveal = memo(({ children, width = "fit-content", delay = 0.25 }) => {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: true });
-
-    const mainControls = useAnimation();
-
-    useEffect(() => {
-        if (isInView) {
-            mainControls.start("visible");
-        }
-    }, [isInView, mainControls]);
+    const isInView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
 
     return (
         <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
             <motion.div
-                variants={{
-                    hidden: { opacity: 0, y: 75 },
-                    visible: { opacity: 1, y: 0 },
-                }}
-                initial="hidden"
-                animate={mainControls}
-                transition={{ duration: 0.5, delay: delay }}
+                initial={{ opacity: 0, y: 40 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+                transition={{ duration: 0.45, delay, ease: [0.21, 0.47, 0.32, 0.98] }}
             >
                 {children}
             </motion.div>
         </div>
     );
-};
+});
+
+Reveal.displayName = 'Reveal';

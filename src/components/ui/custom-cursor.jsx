@@ -1,52 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useRef, memo } from 'react';
 
-export const CustomCursor = () => {
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-    const [cursorVariant, setCursorVariant] = useState("default");
+// Uses refs + direct DOM manipulation instead of useState to avoid
+// re-rendering the entire component on every mouse move event
+export const CustomCursor = memo(() => {
+    const cursorRef = useRef(null);
+    const pos = useRef({ x: 0, y: 0 });
+    const rafId = useRef(null);
 
     useEffect(() => {
-        const mouseMove = (e) => {
-            setMousePosition({
-                x: e.clientX,
-                y: e.clientY
-            });
+        // Only show on non-touch devices
+        if (window.matchMedia('(pointer: coarse)').matches) return;
+
+        const el = cursorRef.current;
+        if (!el) return;
+
+        el.style.display = 'block';
+
+        const onMouseMove = (e) => {
+            pos.current = { x: e.clientX, y: e.clientY };
         };
 
-        window.addEventListener("mousemove", mouseMove);
+        const render = () => {
+            if (el) {
+                el.style.transform = `translate3d(${pos.current.x - 16}px, ${pos.current.y - 16}px, 0)`;
+            }
+            rafId.current = requestAnimationFrame(render);
+        };
+
+        window.addEventListener('mousemove', onMouseMove, { passive: true });
+        rafId.current = requestAnimationFrame(render);
 
         return () => {
-            window.removeEventListener("mousemove", mouseMove);
+            window.removeEventListener('mousemove', onMouseMove);
+            if (rafId.current) cancelAnimationFrame(rafId.current);
         };
     }, []);
 
-    const variants = {
-        default: {
-            x: mousePosition.x - 16,
-            y: mousePosition.y - 16,
-            backgroundColor: "rgba(0, 51, 102, 0.1)", // Leo Blue with low opacity
-            borderColor: "rgba(0, 51, 102, 0.3)",
-        },
-        text: {
-            height: 150,
-            width: 150,
-            x: mousePosition.x - 75,
-            y: mousePosition.y - 75,
-            backgroundColor: "rgba(26, 35, 126, 0.1)", // Royal blue with opacity
-            mixBlendMode: "difference"
-        }
-    };
-
     return (
-        <motion.div
-            className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] hidden md:block border border-current backdrop-blur-sm"
-            variants={variants}
-            animate={cursorVariant}
-            transition={{
-                type: "spring",
-                stiffness: 500,
-                damping: 28
-            }}
+        <div
+            ref={cursorRef}
+            className="fixed top-0 left-0 w-8 h-8 rounded-full pointer-events-none z-[9999] hidden md:block border border-leo-blue/30 bg-leo-blue/10 backdrop-blur-sm"
+            style={{ display: 'none', willChange: 'transform' }}
+            aria-hidden="true"
         />
     );
-};
+});
+
+CustomCursor.displayName = 'CustomCursor';

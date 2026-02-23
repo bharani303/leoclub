@@ -5,18 +5,19 @@ import * as z from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Loader2, CheckCircle, Sparkles, User, School, Phone, Mail, Users, AlertCircle } from 'lucide-react';
 import Confetti from 'react-confetti';
-import { db } from '../../services/db';
 
 // Zod Schema
 const formSchema = z.object({
+    category: z.enum(["Student", "Professional"]),
     fullName: z.string().min(2, "Name must be at least 2 characters"),
     gender: z.enum(["Male", "Female", "Other", "Prefer not to say"]),
     dob: z.string().min(1, "Date of Birth is required"),
-    college: z.string().min(3, "College Name is required"),
-    department: z.string().min(2, "Department is required"),
-    year: z.string().min(1, "Year of Study is required"),
-    university: z.string().min(3, "University Name is required"),
-    rollNo: z.string().min(3, "Student ID/Roll No is required"),
+    college: z.string().optional(),
+    department: z.string().optional(),
+    year: z.string().optional(),
+    university: z.string().optional(),
+    rollNo: z.string().optional(),
+    organization: z.string().optional(),
 
     phone: z.string().regex(/^[0-9]{10}$/, "Invalid Phone Number (10 digits)"),
     whatsapp: z.string().regex(/^[0-9]{10}$/, "Invalid WhatsApp Number (10 digits)"),
@@ -71,21 +72,50 @@ const HoliRegistrationForm = () => {
     const category = watch("category");
 
     const onSubmit = async (data) => {
+        console.log("=== COLLEGE FORM SUBMISSION STARTED ===");
         console.log("Form Data Submitted:", data);
 
         try {
-            const result = await db.saveRegistration(data);
-            if (result.success) {
-                setIsSuccess(true);
-                reset();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            } else {
-                throw new Error(result.message);
+            console.log("Making POST request to: http://localhost:8080/form");
+            console.log("Payload:", JSON.stringify(data, null, 2));
+
+            // Send data to Spring Boot backend
+            const response = await fetch('http://localhost:8080/form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+
+            console.log("Response Status:", response.status);
+            console.log("Response OK:", response.ok);
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error("Server Error Response:", errorText);
+                throw new Error(`Server error: ${response.status} - ${errorText}`);
             }
+
+            const result = await response.text();
+            console.log("Server Response:", result);
+            console.log("=== REGISTRATION SUCCESSFUL ===");
+
+            setIsSuccess(true);
+            reset();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
         } catch (error) {
-            console.error("Submission Error:", error);
-            // In a real app, I'd show a toast here
-            alert("Registration failed. Please try again.");
+            console.error("=== SUBMISSION ERROR ===");
+            console.error("Error Type:", error.name);
+            console.error("Error Message:", error.message);
+            console.error("Full Error:", error);
+
+            if (error.message.includes("Failed to fetch")) {
+                alert("Cannot connect to server. Make sure Spring Boot is running on port 8080.");
+            } else {
+                alert(`Registration failed: ${error.message}. Please try again.`);
+            }
         }
     };
 

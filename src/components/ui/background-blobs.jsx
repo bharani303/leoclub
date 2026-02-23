@@ -1,49 +1,41 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { memo } from 'react';
 
-const BackgroundBlobs = () => {
+// Static blobs using CSS animations instead of Framer Motion
+// This avoids JS-driven animation (much lighter on GPU/CPU)
+const BackgroundBlobs = memo(() => {
     return (
-        <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
-            <motion.div
-                className="absolute top-0 -left-20 w-[600px] h-[600px] bg-leo-blue/20 rounded-full blur-[100px] mix-blend-multiply filter"
-                animate={{
-                    x: [0, 100, 0],
-                    y: [0, 50, 0],
-                    scale: [1, 1.1, 1],
-                }}
-                transition={{
-                    duration: 10,
-                    repeat: Infinity,
-                    repeatType: "reverse",
+        <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10" aria-hidden="true">
+            <div
+                className="absolute top-0 -left-20 w-[500px] h-[500px] rounded-full"
+                style={{
+                    background: 'rgba(0, 51, 102, 0.12)',
+                    filter: 'blur(80px)',
+                    animation: 'blobMove1 12s ease-in-out infinite alternate',
+                    willChange: 'transform',
                 }}
             />
-            <motion.div
-                className="absolute bottom-0 -right-20 w-[500px] h-[500px] bg-leo-gold/20 rounded-full blur-[100px] mix-blend-multiply filter"
-                animate={{
-                    x: [0, -100, 0],
-                    y: [0, -50, 0],
-                    scale: [1, 1.2, 1],
-                }}
-                transition={{
-                    duration: 12,
-                    repeat: Infinity,
-                    repeatType: "reverse",
+            <div
+                className="absolute bottom-0 -right-20 w-[400px] h-[400px] rounded-full"
+                style={{
+                    background: 'rgba(255, 215, 0, 0.10)',
+                    filter: 'blur(80px)',
+                    animation: 'blobMove2 14s ease-in-out infinite alternate',
+                    willChange: 'transform',
                 }}
             />
-            <motion.div
-                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-leo-royal/10 rounded-full blur-[120px] mix-blend-multiply filter"
-                animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.3, 0.5, 0.3],
-                }}
-                transition={{
-                    duration: 15,
-                    repeat: Infinity,
-                    repeatType: "reverse",
-                }}
-            />
+            <style>{`
+                @keyframes blobMove1 {
+                    from { transform: translate(0, 0) scale(1); }
+                    to   { transform: translate(60px, 30px) scale(1.08); }
+                }
+                @keyframes blobMove2 {
+                    from { transform: translate(0, 0) scale(1); }
+                    to   { transform: translate(-60px, -30px) scale(1.1); }
+                }
+            `}</style>
         </div>
     );
-};
+});
 
+BackgroundBlobs.displayName = 'BackgroundBlobs';
 export default BackgroundBlobs;

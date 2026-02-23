@@ -183,3 +183,14 @@
   color: transparent;
   background-image: linear-gradient(to right, var(--color-leo-blue), var(--color-leo-royal), var(--color-leo-yellow));
 }
+
+/* Performance: skip rendering off-screen sections */
+section:not(#hero) {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
+/* Promote animated elements to their own composited layer */
+.will-animate {
+  will-change: transform;
+}

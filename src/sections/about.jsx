@@ -62,6 +62,8 @@ const About = () => {
                                     <img
                                         src={about1}
                                         alt="Group of friends"
+                                        loading="lazy"
+                                        decoding="async"
                                         className="rounded-2xl shadow-lg w-full h-64 object-cover hover:scale-[1.02] transition-transform duration-500"
                                     />
                                     <div className="bg-leo-blue text-white p-6 h-64 rounded-2xl shadow-lg">
@@ -78,6 +80,8 @@ const About = () => {
                                     <img
                                         src={about2}
                                         alt="Team meeting"
+                                        loading="lazy"
+                                        decoding="async"
                                         className="rounded-2xl shadow-lg w-full h-64 object-cover hover:scale-[1.02] transition-transform duration-500"
                                     />
                                 </div>
