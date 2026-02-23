@@ -58,7 +58,7 @@ const About = () => {
                     <div className="relative">
                         <Reveal delay={0.4}>
                             <div className="grid grid-cols-2 gap-4">
-                                <div className="space-y-4 translate-y-8">
+                                <div className="space-y-4 md:translate-y-8">
                                     <img
                                         src={about1}
                                         alt="Group of friends"

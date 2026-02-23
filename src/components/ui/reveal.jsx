@@ -3,7 +3,9 @@ import { motion, useInView } from "framer-motion";
 
 // Simplified Reveal: uses useInView directly (no useAnimation/useEffect overhead)
 // memo prevents re-render when parent re-renders
-export const Reveal = memo(({ children, width = "fit-content", delay = 0.25 }) => {
+// Default width is "100%" so it behaves as a normal block container — prevents fit-content
+// from collapsing centered/full-width elements.
+export const Reveal = memo(({ children, width = "100%", delay = 0.25 }) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: "0px 0px -60px 0px" });
 

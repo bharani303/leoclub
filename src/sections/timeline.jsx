@@ -16,29 +16,39 @@ const Timeline = () => {
                     <h2 className="text-4xl font-bold mb-16 text-center">Our Journey</h2>
                 </Reveal>
 
-                <div className="relative border-l-2 border-leo-blue/20 ml-4 md:ml-auto md:mr-auto space-y-12">
-                    {events.map((event, index) => (
-                        <Reveal key={index} delay={0.1 * index} width="100%">
-                            <div className="relative pl-8 md:pl-0">
-                                {/* Dot */}
-                                <div className="absolute top-0 left-[-5px] w-3 h-3 bg-leo-gold rounded-full ring-4 ring-white dark:ring-background" />
+                {/* Timeline — single left-aligned column on mobile, alternating on desktop */}
+                <div className="relative">
+                    {/* Vertical line — centered on desktop, left-aligned on mobile */}
+                    <div className="absolute left-6 md:left-1/2 top-0 bottom-0 w-0.5 bg-leo-blue/20 -translate-x-1/2" />
 
-                                <div className={`md:flex items-start gap-8 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}>
-                                    {/* Date for desktop - opposite side */}
-                                    <div className={`hidden md:block w-1/2 ${index % 2 === 0 ? 'text-left pl-8' : 'text-right pr-8'}`}>
-                                        <span className="text-4xl font-bold text-leo-blue/20">{event.year}</span>
-                                    </div>
+                    <div className="space-y-12">
+                        {events.map((event, index) => {
+                            const isEven = index % 2 === 0;
+                            return (
+                                <Reveal key={index} delay={0.1 * index}>
+                                    <div className={`relative flex items-start gap-6 md:gap-0 ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
 
-                                    {/* Content */}
-                                    <div className={`md:w-1/2 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
-                                        <span className="md:hidden text-2xl font-bold text-leo-blue/20 block mb-2">{event.year}</span>
-                                        <h3 className="text-xl font-bold mb-2">{event.title}</h3>
-                                        <p className="text-muted-foreground">{event.description}</p>
+                                        {/* Dot */}
+                                        <div className="absolute left-6 md:left-1/2 top-2 w-4 h-4 bg-leo-gold rounded-full ring-4 ring-white dark:ring-background -translate-x-1/2 z-10 shrink-0" />
+
+                                        {/* Year badge — mobile: right of dot  |  desktop: opposite side */}
+                                        <div className={`hidden md:flex md:w-1/2 items-start pt-1 ${isEven ? 'justify-end pr-10' : 'justify-start pl-10'}`}>
+                                            <span className="text-4xl font-bold text-leo-blue/20 select-none">{event.year}</span>
+                                        </div>
+
+                                        {/* Content card */}
+                                        <div className={`pl-14 md:pl-0 md:w-1/2 ${isEven ? 'md:pl-10' : 'md:pr-10 md:text-right'}`}>
+                                            <span className="md:hidden text-2xl font-bold text-leo-blue/20 block mb-1">{event.year}</span>
+                                            <div className="bg-white dark:bg-card border border-border rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                                                <h3 className="text-lg font-bold mb-1">{event.title}</h3>
+                                                <p className="text-sm text-muted-foreground leading-relaxed">{event.description}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </Reveal>
-                    ))}
+                                </Reveal>
+                            );
+                        })}
+                    </div>
                 </div>
             </div>
         </section>

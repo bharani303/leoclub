@@ -47,33 +47,33 @@ const Membership = () => {
                             </p>
                         </Reveal>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10">
                             {benefits.map((benefit, index) => (
-                                <Reveal key={index} delay={0.1 * index}>
-                                    <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors">
+                                <Reveal key={index} delay={0.05 * index}>
+                                    <div className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted transition-colors w-full">
                                         <CheckCircle2 className="w-5 h-5 text-green-500 shrink-0" />
-                                        <span className="font-medium">{benefit}</span>
+                                        <span className="font-medium text-sm">{benefit}</span>
                                     </div>
                                 </Reveal>
                             ))}
                         </div>
 
-                        <Reveal delay={0.8}>
+                        <Reveal delay={0.5}>
                             <button className="px-8 py-4 bg-leo-blue text-white font-bold rounded-full hover:bg-leo-royal transition-all shadow-lg hover:shadow-leo-blue/30 transform hover:-translate-y-1">
                                 Apply for Membership
                             </button>
                         </Reveal>
                     </div>
 
-                    {/* Right Cards */}
+                    {/* Right Cards — removed translate-y-12 which caused overflow on mobile */}
                     <div className="relative">
                         <div className="grid grid-cols-2 gap-6">
-                            <MotionCard delay={0.2} className="translate-y-12 bg-white dark:bg-card shadow-xl p-6 rounded-2xl border border-border">
+                            <MotionCard delay={0.2} className="bg-white dark:bg-card shadow-xl p-6 rounded-2xl border border-border">
                                 <Star className="w-10 h-10 text-leo-gold mb-4" />
                                 <h3 className="font-bold text-xl mb-2">Recognition</h3>
                                 <p className="text-sm text-muted-foreground">Get recognized for your service with international awards.</p>
                             </MotionCard>
-                            <MotionCard delay={0.4} className="bg-white dark:bg-card shadow-xl p-6 rounded-2xl border border-border">
+                            <MotionCard delay={0.3} className="mt-8 bg-white dark:bg-card shadow-xl p-6 rounded-2xl border border-border">
                                 <Users className="w-10 h-10 text-leo-blue mb-4" />
                                 <h3 className="font-bold text-xl mb-2">Community</h3>
                                 <p className="text-sm text-muted-foreground">Join a family of 1.4 million volunteers worldwide.</p>
