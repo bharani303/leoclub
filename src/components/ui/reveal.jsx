@@ -12,6 +12,7 @@ export const Reveal = memo(({ children, width = "100%", delay = 0.25 }) => {
     return (
         <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }}>
             <motion.div
+                style={{ width: "100%" }}
                 initial={{ opacity: 0, y: 40 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
                 transition={{ duration: 0.45, delay, ease: [0.21, 0.47, 0.32, 0.98] }}

@@ -45,7 +45,7 @@ const Home = () => {
                                 Registration Open
                             </div>
                             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
-                                HOLI UTSAV <span className="text-yellow-600">2026</span>
+                                HOLI BLAST <span className="text-yellow-600">2026</span>
                             </h2>
                             <p className="text-xl text-slate-600 max-w-xl font-light leading-relaxed">
                                 Verify your college ID and register your team for the biggest inter-college colour festival of Coimbatore.
@@ -56,7 +56,7 @@ const Home = () => {
                             <Link to="/holi-2026">
                                 <button className="group relative px-10 py-5 bg-gradient-to-r from-yellow-500 to-yellow-600 text-blue-950 font-bold text-lg rounded-lg shadow-xl shadow-yellow-500/20 hover:shadow-yellow-500/30 hover:scale-[1.02] transition-all duration-300">
                                     <span className="relative z-10 flex items-center gap-3 tracking-wide">
-                                        College Registration Open <Sparkles className="w-5 h-5" />
+                                        Registration Open <Sparkles className="w-5 h-5" />
                                     </span>
                                 </button>
                             </Link>
