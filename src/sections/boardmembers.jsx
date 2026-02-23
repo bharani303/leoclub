@@ -14,7 +14,7 @@ const boardMembers = [
         bloodGroup: "AB-",
         isLeader: true,
         rank: 1,
-        image: null, // add Drive URL here
+        image: "https://lh3.googleusercontent.com/d/17wmDHhdpNHTNFSjkuSQBxQwKJdPElNst",
         gradient: "from-leo-blue via-blue-700 to-blue-900",
     },
     {
@@ -24,7 +24,7 @@ const boardMembers = [
         bloodGroup: "B+",
         isLeader: true,
         rank: 2,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/1KLJxtvL36yX299x1Vq_ApV25DJhN3Vte",
         gradient: "from-indigo-600 via-indigo-700 to-leo-blue",
     },
     {
@@ -33,7 +33,7 @@ const boardMembers = [
         portfolio: "Leo Treasurer of HICAS",
         bloodGroup: "A+",
         rank: 3,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/1aeL80zMWVm0FO15PMDfnZAzlUAZARY0N",
         gradient: "from-amber-500 via-yellow-600 to-amber-700",
     },
     {
@@ -42,7 +42,7 @@ const boardMembers = [
         portfolio: "Leo Joint Secretary of HICAS",
         bloodGroup: "O+",
         rank: 4,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/18yy80ElK3aCvzt8wK1xv7u50oG_QuOEG",
         gradient: "from-teal-600 via-teal-700 to-emerald-800",
     },
     {
@@ -51,7 +51,7 @@ const boardMembers = [
         portfolio: "Leo Sergeant at Arms of HICAS",
         bloodGroup: "A+",
         rank: 5,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/190oehUBCbOqtB2FV_CtNGNl0YPCSqp8G",
         gradient: "from-slate-600 via-slate-700 to-slate-800",
     },
     {
@@ -60,7 +60,7 @@ const boardMembers = [
         portfolio: "Leo Community Service Chair",
         bloodGroup: "B+",
         rank: 6,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/1aAJ_d-H9x2Cbta5p2Xsvaw17zdcnA0vH",
         gradient: "from-rose-500 via-rose-600 to-red-700",
     },
     {
@@ -69,7 +69,7 @@ const boardMembers = [
         portfolio: "Leo Community Service Director",
         bloodGroup: "B+",
         rank: 7,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/1J53TFYoN3RVCzCPzPrESVs1s72NL1Xbz",
         gradient: "from-orange-500 via-orange-600 to-red-600",
     },
     {
@@ -78,7 +78,7 @@ const boardMembers = [
         portfolio: "Leo Membership Director",
         bloodGroup: "B+",
         rank: 8,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/153sLIrlsXaaoeSV33yaiDJhT--7ocpR0",
         gradient: "from-cyan-600 via-cyan-700 to-blue-700",
     },
     {
@@ -87,7 +87,7 @@ const boardMembers = [
         portfolio: "Leo International Relation Chairman",
         bloodGroup: "O+",
         rank: 9,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/16gXiWwcsUfUBzVOVQy35qCt6GyiKkk2Y",
         gradient: "from-violet-600 via-violet-700 to-purple-800",
     },
     {
@@ -96,7 +96,7 @@ const boardMembers = [
         portfolio: "Leo International Relations Officer",
         bloodGroup: "A+",
         rank: 10,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/1HJdKfs0lM-aAXbiTUWe8vuGmaQV2MZ0m",
         gradient: "from-fuchsia-600 via-fuchsia-700 to-purple-700",
     },
     {
@@ -105,7 +105,7 @@ const boardMembers = [
         portfolio: "Leo IT/Tech Coordinator",
         bloodGroup: "B+",
         rank: 11,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/1E3kNhd8_X0wozqr54q_M6SoD1RyqIb-F",
         gradient: "from-sky-500 via-sky-600 to-blue-700",
     },
     {
@@ -114,7 +114,7 @@ const boardMembers = [
         portfolio: "Leo Project Coordinator of HICAS",
         bloodGroup: "A+",
         rank: 12,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/1pIDd1sa94c88V0ukrMoK0feFwMIXtf5K",
         gradient: "from-pink-500 via-pink-600 to-rose-700",
     },
     {
@@ -123,7 +123,7 @@ const boardMembers = [
         portfolio: "Leo Fund Raising Chairman",
         bloodGroup: "A1B+",
         rank: 13,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/1Enwji_fF62bvi6u3MT21gD2HV7sTeZi0",
         gradient: "from-green-600 via-emerald-600 to-teal-700",
     },
     {
@@ -132,7 +132,7 @@ const boardMembers = [
         portfolio: "Leo Blood Donor Cell",
         bloodGroup: "O+",
         rank: 14,
-        image: null,
+        image: "https://lh3.googleusercontent.com/d/1mPTkUCN-1K2ON7-DxZE605_1aSwGZhDY",
         gradient: "from-red-500 via-red-600 to-rose-700",
     },
 ];
