@@ -191,6 +191,16 @@ const Lightbox = memo(({ items, index, onClose }) => {
     const prev = useCallback(() => { setDir(-1); setCur(i => (i - 1 + items.length) % items.length); }, [items.length]);
     const next = useCallback(() => { setDir(1); setCur(i => (i + 1) % items.length); }, [items.length]);
 
+    // Touch swipe support for mobile
+    const touchRef = useRef(null);
+    const handleTouchStart = useCallback((e) => { touchRef.current = e.touches[0].clientX; }, []);
+    const handleTouchEnd = useCallback((e) => {
+        if (touchRef.current === null) return;
+        const diff = touchRef.current - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
+        touchRef.current = null;
+    }, [next, prev]);
+
     useEffect(() => {
         const h = (e) => { if (e.key === 'ArrowLeft') prev(); if (e.key === 'ArrowRight') next(); if (e.key === 'Escape') onClose(); };
         window.addEventListener('keydown', h);
@@ -211,7 +221,8 @@ const Lightbox = memo(({ items, index, onClose }) => {
 
     return (
         <motion.div className="fixed inset-0 z-[1000] flex flex-col items-center justify-center"
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
 
             {/* Backdrop */}
             <div className="absolute inset-0 bg-black/92 backdrop-blur-2xl" onClick={onClose} />
@@ -227,13 +238,13 @@ const Lightbox = memo(({ items, index, onClose }) => {
                 {String(cur + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')}
             </div>
 
-            {/* Category badge */}
-            <div className="absolute top-5 left-1/2 -translate-x-1/2 z-20 px-4 py-1.5 rounded-full bg-leo-gold/20 border border-leo-gold/30 text-leo-gold text-xs font-bold uppercase tracking-widest backdrop-blur-sm">
+            {/* Category badge — hidden on mobile to avoid overlap */}
+            <div className="absolute top-5 left-1/2 -translate-x-1/2 z-20 px-4 py-1.5 rounded-full bg-leo-gold/20 border border-leo-gold/30 text-leo-gold text-xs font-bold uppercase tracking-widest backdrop-blur-sm hidden sm:block">
                 {CAT_ICONS[item.cat]} {item.cat}
             </div>
 
             {/* Media: Video player or Image */}
-            <div className="relative z-10 w-full max-w-5xl px-16 flex items-center justify-center">
+            <div className="relative z-10 w-full max-w-5xl px-4 sm:px-16 flex items-center justify-center">
                 <AnimatePresence custom={dir} mode="wait">
                     <motion.div key={cur} custom={dir} variants={vars} initial="enter" animate="center" exit="exit"
                         transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }}
@@ -261,17 +272,18 @@ const Lightbox = memo(({ items, index, onClose }) => {
             </div>
 
             {/* Nav buttons */}
+            {/* Nav buttons — smaller on mobile */}
             <button onClick={(e) => { e.stopPropagation(); prev(); }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/25 transition-all backdrop-blur-sm hover:scale-110">
-                <ChevronLeft className="w-6 h-6" />
+                className="absolute left-1 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/25 transition-all backdrop-blur-sm">
+                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
             <button onClick={(e) => { e.stopPropagation(); next(); }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/25 transition-all backdrop-blur-sm hover:scale-110">
-                <ChevronRight className="w-6 h-6" />
+                className="absolute right-1 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/25 transition-all backdrop-blur-sm">
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
 
             {/* Filmstrip */}
-            <div ref={filmRef} className="relative z-10 mt-5 flex gap-2 overflow-x-auto px-4 max-w-3xl" style={{ scrollbarWidth: 'none' }}>
+            <div ref={filmRef} className="relative z-10 mt-3 sm:mt-5 flex gap-1.5 sm:gap-2 overflow-x-auto px-4 max-w-[90vw] sm:max-w-3xl" style={{ scrollbarWidth: 'none' }}>
                 {items.map((item, i) => (
                     <button key={i} onClick={() => { setDir(i > cur ? 1 : -1); setCur(i); }}
                         className={`shrink-0 rounded-lg overflow-hidden border-2 transition-all duration-200
@@ -296,17 +308,17 @@ const Card = memo(({ item, index, onClick }) => {
             exit={{ opacity: 0, scale: 0.92 }}
             transition={{ duration: 0.35, delay: Math.min(index * 0.025, 0.35), ease: [0.21, 0.47, 0.32, 0.98] }}
             onClick={() => onClick(index)}
-            className="group relative overflow-hidden rounded-2xl cursor-pointer bg-neutral-900 aspect-[4/3]"
+            className="group relative overflow-hidden rounded-xl sm:rounded-2xl cursor-pointer bg-neutral-900 aspect-[4/3]"
         >
             <img src={thumb(item.id)} alt={`Leo Club ${item.cat}`} loading="lazy" decoding="async"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
 
-            {/* Hover overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            {/* Gradient overlay — always visible on mobile, hover on desktop */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent sm:from-black/70 sm:via-black/10 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300" />
 
-            {/* Category pill */}
-            <div className="absolute bottom-3 left-3 z-10 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                <span className="px-2.5 py-1 rounded-full bg-leo-gold text-leo-blue text-[11px] font-bold uppercase tracking-wider shadow">
+            {/* Category pill — always visible on mobile */}
+            <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 z-10 sm:translate-y-2 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100 transition-all duration-300">
+                <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-leo-gold text-leo-blue text-[10px] sm:text-[11px] font-bold uppercase tracking-wider shadow">
                     {CAT_ICONS[item.cat]} {item.cat}
                 </span>
             </div>
