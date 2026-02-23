@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, PawPrint, Moon, Sun } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { cn } from "../../lib/utils";
 import { useTheme } from "../../hooks/use-theme";
 
@@ -8,6 +9,9 @@ const Navbar = ({ darkText = false }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const { theme, toggleTheme } = useTheme();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const isHome = location.pathname === "/";
 
     useEffect(() => {
         const handleScroll = () => {
@@ -26,6 +30,19 @@ const Navbar = ({ darkText = false }) => {
         { name: "Contact", href: "#contact" },
     ];
 
+    const handleNavClick = (e, href) => {
+        e.preventDefault();
+        setIsMobileMenuOpen(false);
+        if (isHome) {
+            // On home page — smooth scroll to section
+            const el = document.querySelector(href);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+        } else {
+            // On another page — navigate to home page with hash
+            navigate("/" + href);
+        }
+    };
+
     return (
         <motion.nav
             className={cn(
@@ -39,7 +56,7 @@ const Navbar = ({ darkText = false }) => {
             transition={{ duration: 0.5 }}
         >
             <div className="max-w-7xl mx-auto flex items-center justify-between">
-                <div className="flex items-center gap-3 group cursor-pointer">
+                <div className="flex items-center gap-3 group cursor-pointer" onClick={() => navigate('/')}>
                     <img
                         src="/Leo_clubs_logo.svg.png"
                         alt="Leo Club Logo"
@@ -67,6 +84,7 @@ const Navbar = ({ darkText = false }) => {
                         <a
                             key={link.name}
                             href={link.href}
+                            onClick={(e) => handleNavClick(e, link.href)}
                             className={cn(
                                 "transition-colors font-medium text-sm tracking-wide relative group",
                                 darkText ? "text-slate-700 hover:text-leo-blue" : "text-white/80 hover:text-leo-gold"
@@ -123,7 +141,7 @@ const Navbar = ({ darkText = false }) => {
                                         "text-lg font-medium",
                                         darkText ? "text-slate-800 hover:text-leo-blue" : "text-white/80 hover:text-leo-gold"
                                     )}
-                                    onClick={() => setIsMobileMenuOpen(false)}
+                                    onClick={(e) => handleNavClick(e, link.href)}
                                 >
                                     {link.name}
                                 </a>
