@@ -73,7 +73,7 @@ const Navbar = ({ darkText = false }) => {
                             "text-[0.65rem] md:text-xs font-medium tracking-widest uppercase opacity-90",
                             darkText ? "text-yellow-600" : "text-yellow-400"
                         )}>
-                            Coimbatore
+                            District 324 1D
                         </span>
                     </div>
                 </div>
