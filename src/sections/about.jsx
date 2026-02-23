@@ -19,12 +19,12 @@ const About = () => {
                         </Reveal>
                         <Reveal delay={0.3}>
                             <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                                Leo Clubs are a youth organization of Lions Clubs International. The word "Leo" stands for <strong className="text-leo-gold">Leadership, Experience, Opportunity</strong>.
+                                Leo Clubs are the youth wing of Lions Clubs International. <strong className="text-leo-gold">LEO</strong> stands for <strong className="text-leo-gold">Leadership, Experience, Opportunity</strong> — and our clubs across <strong>District 324 1D</strong> in Tamil Nadu live by that every day.
                             </p>
                         </Reveal>
                         <Reveal delay={0.4}>
                             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-                                We encourage youths to develop leadership qualities by participating in social service activities. With more than 7,200 clubs in over 150 nations, we are the largest youth organization in the world.
+                                District 324 1D operates in Tamil Nadu and selected surrounding regions, bringing together Lions and Leo Clubs for coordinated service in vision care, hunger relief, environment, health, and education. With more than 7,200 clubs in over 150 nations, Leo is the largest youth organization in the world.
                             </p>
                         </Reveal>
 
@@ -36,7 +36,7 @@ const About = () => {
                                     </div>
                                     <h3 className="text-xl font-bold mb-2">Alpha Leos</h3>
                                     <p className="text-muted-foreground text-sm">
-                                        For youths aged 12-18. Focuses on individual development and social skills.
+                                        For youths aged 12–18. Focuses on individual development and social skills.
                                     </p>
                                 </div>
                             </Reveal>
@@ -47,7 +47,7 @@ const About = () => {
                                     </div>
                                     <h3 className="text-xl font-bold mb-2">Omega Leos</h3>
                                     <p className="text-muted-foreground text-sm">
-                                        For young adults aged 18-30. Focuses on professional and personal development.
+                                        For young adults aged 18–30. Focuses on professional and personal development.
                                     </p>
                                 </div>
                             </Reveal>
@@ -61,15 +61,19 @@ const About = () => {
                                 <div className="space-y-4 md:translate-y-8">
                                     <img
                                         src={about1}
-                                        alt="Group of friends"
+                                        alt="Leo Club members"
                                         loading="lazy"
                                         decoding="async"
                                         className="rounded-2xl shadow-lg w-full h-64 object-cover hover:scale-[1.02] transition-transform duration-500"
                                     />
-                                    <div className="bg-leo-blue text-white p-6 h-64 rounded-2xl shadow-lg">
+                                    <div className="bg-leo-blue text-white p-6 h-64 rounded-2xl shadow-lg flex flex-col justify-center">
                                         <Globe className="w-8 h-8 mb-3 text-leo-gold" />
                                         <h4 className="text-2xl font-bold mb-1">150+</h4>
-                                        <p className="text-white/70">Countries</p>
+                                        <p className="text-white/70">Nations Worldwide</p>
+                                        <div className="mt-3 pt-3 border-t border-white/20">
+                                            <p className="text-leo-gold font-bold text-sm">District 324 1D</p>
+                                            <p className="text-white/60 text-xs">Tamil Nadu, India</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="space-y-4">
@@ -79,7 +83,7 @@ const About = () => {
                                     </div>
                                     <img
                                         src={about2}
-                                        alt="Team meeting"
+                                        alt="Team service activity"
                                         loading="lazy"
                                         decoding="async"
                                         className="rounded-2xl shadow-lg w-full h-64 object-cover hover:scale-[1.02] transition-transform duration-500"

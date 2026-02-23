@@ -3,10 +3,10 @@ import { Reveal } from '../components/ui/reveal';
 
 const Timeline = () => {
     const events = [
-        { year: "1957", title: "First Club Founded", description: "The first Leo Club was founded in Pennsylvania, USA, by the Abington Lions Club." },
-        { year: "1967", title: "Official Adoption", description: "Lions Clubs International officially adopted the Leo Club Program." },
-        { year: "1996", title: "100,000 Members", description: "The Leo movement grew to over 100,000 members worldwide." },
-        { year: "2024", title: "Global Impact", description: "Today, there are over 7,200 clubs across 150+ countries serving millions." }
+        { year: "1957", title: "Leo Club Founded", description: "The first Leo Club was established in Pennsylvania, USA, by the Abington Lions Club — the beginning of a global movement." },
+        { year: "1967", title: "LCI Official Adoption", description: "Lions Clubs International officially adopted the Leo Club Program, expanding youth service globally." },
+        { year: "D·324", title: "District 324 1D Formed", description: "District 324 1D was established in Tamil Nadu, India, bringing Lions and Leo Clubs together for coordinated community service." },
+        { year: "2024", title: "Growing Impact", description: "Today District 324 1D runs 45+ Lions Clubs and 20+ Leo Clubs, delivering 500+ service projects annually across Tamil Nadu." }
     ];
 
     return (

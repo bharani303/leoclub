@@ -1,5 +1,5 @@
 import React from 'react';
-import { Target, Eye, Heart, Globe, Award } from 'lucide-react';
+import { Target, Eye, Heart } from 'lucide-react';
 import { Reveal } from '../components/ui/reveal';
 
 const Mission = () => {
@@ -7,17 +7,17 @@ const Mission = () => {
         {
             icon: Target,
             title: "Our Mission",
-            description: "To empower volunteers to serve their communities, meet humanitarian needs, encourage peace and promote international understanding through Lions clubs."
+            description: "To promote humanitarian service activities, support youth leadership through Leo Clubs, and coordinate inter-club service projects across District 324 1D in Tamil Nadu."
         },
         {
             icon: Eye,
             title: "Our Vision",
-            description: "To be the global leader in community and humanitarian service. Taking action and serving others with dedication and passion."
+            description: "To be the leading service district in India — strengthening community engagement, organizing district-level conferences, and empowering the next generation of leaders."
         },
         {
             icon: Heart,
             title: "Core Values",
-            description: "We are guided by the values of integrity, service, community, and excellence in all that we do."
+            description: "We are guided by integrity, compassion, and excellence. From vision care and hunger relief to education and environment, service is at the heart of everything we do."
         }
     ];
 
@@ -30,7 +30,7 @@ const Mission = () => {
                     <Reveal>
                         <h2 className="text-4xl font-bold mb-4">Our Purpose</h2>
                         <p className="text-muted-foreground text-lg">
-                            Driven by a commitment to service and leadership.
+                            Driven by a commitment to service, leadership, and community development in District 324 1D.
                         </p>
                     </Reveal>
                 </div>

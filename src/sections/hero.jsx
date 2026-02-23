@@ -43,7 +43,7 @@ const Hero = memo(() => {
                     transition={{ duration: 0.6, delay: 0.1 }}
                 >
                     <span className="inline-block py-1 px-3 rounded-full bg-leo-gold/20 text-leo-gold border border-leo-gold/30 backdrop-blur-sm mb-6 font-medium tracking-wide">
-                        Youth Wing of Lions Clubs International
+                        Lions International — District 324 1D · Tamil Nadu
                     </span>
                 </motion.div>
 
@@ -62,7 +62,7 @@ const Hero = memo(() => {
                     transition={{ duration: 0.6, delay: 0.4 }}
                     className="text-xl md:text-2xl text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed"
                 >
-                    Join a global network of young leaders dedicated to making a positive impact in their communities and around the world.
+                    Empowering young leaders across Tamil Nadu through service, compassion, and community action under District 324 1D.
                 </motion.p>
 
                 <motion.div

@@ -11,34 +11,40 @@ import sightImg from '../assets/activities/sight.jpg';
 const Activities = () => {
     const activities = [
         {
-            title: "Tree Plantation",
-            category: "Environment",
-            image: envImg
+            title: "Vision Programs",
+            category: "Eye Care",
+            description: "Eye screening camps, cataract surgery support & spectacle distribution.",
+            image: sightImg
         },
         {
-            title: "Blood Donation",
+            title: "Blood & Health Camps",
             category: "Health",
+            description: "Blood donation drives, medical camps & diabetes awareness programs.",
             image: healthImg
         },
         {
-            title: "Food Drive",
-            category: "Hunger Relief",
+            title: "Hunger Relief",
+            category: "Food & Community",
+            description: "Food distribution drives and community feeding programs.",
             image: hungerImg
+        },
+        {
+            title: "Tree Plantation",
+            category: "Environment",
+            description: "Tree plantation drives, plastic-free campaigns & clean-up initiatives.",
+            image: envImg
         },
         {
             title: "Education Support",
             category: "Literacy",
+            description: "Government school support, notebook & uniform distribution, scholarships.",
             image: litImg
         },
         {
             title: "Disaster Relief",
             category: "Humanitarian",
+            description: "Rapid response for disaster-affected communities across Tamil Nadu.",
             image: humImg
-        },
-        {
-            title: "Vision Screening",
-            category: "Sight",
-            image: sightImg
         }
     ];
 
@@ -47,9 +53,11 @@ const Activities = () => {
             <div className="max-w-7xl mx-auto px-6">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-12">
                     <Reveal>
-                        <h2 className="text-4xl md:text-5xl font-bold mb-4">Our <span className="text-leo-gold">Impact</span></h2>
+                        <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                            Major <span className="text-leo-gold">Service Areas</span>
+                        </h2>
                         <p className="text-muted-foreground max-w-xl">
-                            From local initiatives to global campaigns, Leos are making a difference everywhere.
+                            District 324 1D Leo Clubs actively serve across six major humanitarian pillars in Tamil Nadu.
                         </p>
                     </Reveal>
                     <Reveal delay={0.2}>
@@ -61,7 +69,7 @@ const Activities = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {activities.map((activity, index) => (
-                        <Reveal key={index} delay={0.1 * index}>
+                        <Reveal key={index} delay={0.08 * index}>
                             <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] cursor-pointer">
                                 <img
                                     src={activity.image}
@@ -70,13 +78,16 @@ const Activities = () => {
                                     decoding="async"
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-70 group-hover:opacity-90 transition-opacity" />
 
-                                <div className="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                                    <span className="text-leo-gold text-sm font-bold uppercase tracking-wider mb-2 block opacity-0 group-hover:opacity-100 transition-opacity delay-100 slide-in-from-bottom-2">
+                                <div className="absolute bottom-0 left-0 p-6 w-full">
+                                    <span className="text-leo-gold text-xs font-bold uppercase tracking-wider mb-2 block opacity-0 group-hover:opacity-100 transition-opacity delay-100">
                                         {activity.category}
                                     </span>
-                                    <h3 className="text-2xl font-bold text-white mb-1">{activity.title}</h3>
+                                    <h3 className="text-xl font-bold text-white mb-1">{activity.title}</h3>
+                                    <p className="text-white/70 text-sm leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity delay-100 line-clamp-2">
+                                        {activity.description}
+                                    </p>
                                 </div>
                             </div>
                         </Reveal>

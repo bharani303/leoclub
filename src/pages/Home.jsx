@@ -11,6 +11,7 @@ import About from '../sections/about';
 import Mission from '../sections/mission';
 import Activities from '../sections/activities';
 import Organization from '../sections/organization';
+import BoardMembers from '../sections/boardmembers';
 import Membership from '../sections/membership';
 import Testimonials from '../sections/testimonials';
 import Timeline from '../sections/timeline';
@@ -65,6 +66,7 @@ const Home = () => {
                 </section>
 
                 <Organization />
+                <BoardMembers />
                 <About />
                 <Mission />
                 <Activities />

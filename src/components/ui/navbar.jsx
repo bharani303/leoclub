@@ -20,7 +20,7 @@ const Navbar = ({ darkText = false }) => {
     const navLinks = [
         { name: "Home", href: "#hero" },
         { name: "About", href: "#about" },
-        { name: "Mission", href: "#mission" },
+        { name: "Board", href: "#board" },
         { name: "Activities", href: "#activities" },
         { name: "Join Us", href: "#membership" },
         { name: "Contact", href: "#contact" },
